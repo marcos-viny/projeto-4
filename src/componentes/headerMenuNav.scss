@@ -1,0 +1,112 @@
+.Teste__nav {
+    transition: ease;
+    transition-duration: 1s;
+    opacity: 1;
+    z-index: 100;
+    position: absolute;
+    width: 50%;
+}
+
+.Teste__fechar {
+    transition: ease;
+    transition-duration: 1s;
+    opacity: 0;
+    z-index: 100;
+    position: absolute;
+    width: 50%;
+}
+
+.hamburguer {
+    border-top: 3px solid rgba(17, 0, 0, 1);
+    display: block;
+    transition: ease;
+    transition-duration: .5s;
+    width: 35px;
+}
+
+.hamburguer-1 {
+    width: 25px;
+    border-top: 3px solid rgba(17, 0, 0, 1);
+    transition: ease;
+    transition-duration: .5s;
+    display: block;
+    margin-top: 3px;
+}
+
+@media (min-width: 600px) {
+    .Teste-hover:hover {
+        .hamburguer-1,
+        .hamburguer-3 {
+            transition: ease;
+            transition-duration: .5s;
+            width: 35px;
+        }
+    }
+}
+
+.hamburguer-2 {
+    width: 35px;
+    border-top: 3px solid rgba(17, 0, 0, 1);
+    transition: ease;
+    transition-duration: .5s;
+    display: block;
+    margin-top: 3px;
+}
+
+.hamburguer-3 {
+    width: 20px;
+    border-top: 3px solid rgba(17, 0, 0, 1);
+    transition: ease;
+    transition-duration: .5s;
+    display: block;
+    margin-top: 3px;
+}
+
+.iconActive {
+    .hamburguer,
+    .hamburguer-1,
+    .hamburguer-2,
+    .hamburguer-3 {
+        transition-duration: .5s;
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+}
+
+.teste-1 {
+    width: 30px;
+    border-top: 3px solid rgba(17, 0, 0, 1);
+    transition: ease;
+    transition-duration: .5s;
+    display: block;
+    margin-top: -15px;
+    opacity: 0;
+}
+
+.teste-1::before {
+    width: 30px;
+    border-top: 3px solid rgba(17, 0, 0, 1);
+    content: "";
+    display: block;
+    position: relative;
+    transition: ease;
+    transition-duration: .5s;
+    opacity: 0;
+}
+
+.testeActive {
+    .teste-1 {
+        transform: rotate(135deg);
+        transition-duration: .5s;
+        opacity: 1;
+    }
+}
+
+.testeActive {
+    .teste-1::before {
+        transform: rotate(95deg);
+        transition-duration: .5s;
+        top: -3px;
+        opacity: 1;
+    }
+}
