@@ -5,6 +5,7 @@ import HeaderMenu from "../../../../componentes/headerMenuNav"
 
 import "./usuarioCadastrar.scss";
 
+//ANIMAÇÃO DO FORMULARIO;
 export default function Login() {
   let [abrir, setAbrir] = useState(0);
   function toogle(e: any) {
@@ -23,25 +24,34 @@ export default function Login() {
   async function handleSubmit(){
     const data = {
       name:nome, 
-      email:email, 
+      email, 
       password:senha
     };
 
     try {
-      await api.post('/auth/register', data)
-      console.log('teste')
-      
+      if(nome != "" && email != "" && senha != ""){
+        await api.post('/auth/register', data)
+        console.log('teste')
+      }
     } catch (err) {
       console.log(err)
     }
+  };
+
+  // AUTENTICAÇÃO LOGIN;
+  function handleLogin(){
+    const data = { 
+      email, 
+      password:senha
+    };
 
   };
   return (
       <>
        <div>
-            <HeaderMenu nome="Login e Cadastro"/>
+            <HeaderMenu nome="Cadastro e Login"/>
           </div>
-      {/* create conta */}
+      {/* CRIAR CONTA */}
       <div
       className={`
         flex
@@ -113,7 +123,7 @@ export default function Login() {
             </form>
           </div>
 
-          {/* Login */}
+          {/* LOGIN */}
           <div className="form signupForm">
             <form action="">
               <div className="social-container flex justify-center">
@@ -128,9 +138,25 @@ export default function Login() {
                 </a>
               </div>
               <h3>Sing Up</h3>
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Senha" />
-              <input type="submit" value="Login" />
+              <input 
+              type="email" 
+              required
+              id="email"
+              name="email"
+              value={nome}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Email" />
+
+              <input 
+              type="password" 
+              required
+              id="senha"
+              name="senha"
+              value={senha}
+              onChange={e => setSenha(e.target.value)}
+              placeholder="Senha" />
+
+              <input type="submit" value="Login" onClick={handleLogin}/>
             </form>
           </div>
         </div>
