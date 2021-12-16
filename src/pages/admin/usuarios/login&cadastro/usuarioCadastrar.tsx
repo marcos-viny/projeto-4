@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { BsLinkedin, BsFacebook, BsInstagram } from "react-icons/bs";
 import api from "../../../../server/index";
-import HeaderMenu from "../../../../componentes/headerMenuNav"
+import HeaderMenu from "../../../../componentes/headerMenuNav";
 
 import "./usuarioCadastrar.scss";
 
@@ -39,13 +41,30 @@ export default function Login() {
   };
 
   // AUTENTICAÇÃO LOGIN;
-  function handleLogin(){
-    const data = { 
-      email, 
-      password:senha
+  const [senhaAuth, setSenhaAuth] = useState('');
+  const [emailAuth, setEmailAuth] = useState('');
+  async function handleLogin(){
+    const data1 = { 
+      email:emailAuth, 
+      password:senhaAuth
     };
-
+    try {
+      await api.post('/auth/authenticate', data1)
+    } catch (err) {
+      console.log(err);
+      
+    }
   };
+
+  //FORGOT
+  async function handleForgot(){
+    try {
+      await api.post('/auth/forgot_password')
+    } catch (err) {
+      console.log(err);
+      
+    }
+  }
   return (
       <>
        <div>
@@ -120,6 +139,8 @@ export default function Login() {
                         placeholder="Senha"/>
 
                       <input type="submit" value="Registrar" onClick={handleSubmit}/>  
+
+                      <a href=""></a>
             </form>
           </div>
 
@@ -141,22 +162,26 @@ export default function Login() {
               <input 
               type="email" 
               required
-              id="email"
+              id="emaill"
               name="email"
-              value={nome}
-              onChange={e => setEmail(e.target.value)}
+              value={emailAuth}
+              onChange={e => setEmailAuth(e.target.value)}
               placeholder="Email" />
 
               <input 
               type="password" 
               required
-              id="senha"
+              id="senhaa"
               name="senha"
-              value={senha}
-              onChange={e => setSenha(e.target.value)}
+              value={senhaAuth}
+              onChange={e => setSenhaAuth(e.target.value)}
               placeholder="Senha" />
 
               <input type="submit" value="Login" onClick={handleLogin}/>
+
+              <Link to="/admin/trocarSenha">
+               
+              </Link>
             </form>
           </div>
         </div>
