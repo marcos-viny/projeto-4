@@ -30,6 +30,7 @@ import {
            <Route path="/admin/usuario" element={<Usuario />} />
            <Route path="/admin/trocarSenha" element={<Forgot />} />
            <Route path="*" element={<NotFound />} />
+           <Route path="/usuarios" element={<h1>teste</h1>} />
          </Routes>
        </Router>
      );

@@ -32,8 +32,12 @@ export default function Login() {
 
     try {
       if(nome != "" && email != "" && senha != ""){
-        await api.post('/auth/register', data)
-        console.log('teste')
+    const response = await api.post('/auth/register', data);
+    if(response.status == 200){
+      window.location.href='/usuarios';
+    }else{
+      alert('Error ao cadastrar o usuario')
+    }
       }
     } catch (err) {
       console.log(err)
@@ -52,7 +56,6 @@ export default function Login() {
       await api.post('/auth/authenticate', data1)
     } catch (err) {
       console.log(err);
-      
     }
   };
 
@@ -180,7 +183,7 @@ export default function Login() {
               <input type="submit" value="Login" onClick={handleLogin}/>
 
               <Link to="/admin/trocarSenha">
-               
+               <button>Trocar de senha</button>
               </Link>
             </form>
           </div>
