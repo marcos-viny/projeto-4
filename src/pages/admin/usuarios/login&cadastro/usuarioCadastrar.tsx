@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { BsLinkedin, BsFacebook, BsInstagram } from "react-icons/bs";
 import api from "../../../../server/index";
-import HeaderMenu from "../../../../componentes/headerMenuNav"
+import HeaderMenu from "../../../../componentes/headerMenuNav";
 
 import "./usuarioCadastrar.scss";
 
+//ANIMAÇÃO DO FORMULARIO;
 export default function Login() {
   let [abrir, setAbrir] = useState(0);
   function toogle(e: any) {
@@ -23,25 +26,59 @@ export default function Login() {
   async function handleSubmit(){
     const data = {
       name:nome, 
-      email:email, 
+      email, 
       password:senha
     };
 
     try {
-      await api.post('/auth/register', data)
-      console.log('teste')
-      
+      if(nome != "" && email != "" && senha != ""){
+    const response = await api.post('/auth/register', data);
+    if(response.status == 200){
+      window.location.href='/usuarios';
+    }else{
+      alert('Error ao cadastrar o usuario')
+    }
+      }
     } catch (err) {
       console.log(err)
     }
-
   };
+
+  // AUTENTICAÇÃO LOGIN;
+  const [senhaAuth, setSenhaAuth] = useState('');
+  const [emailAuth, setEmailAuth] = useState('');
+  async function handleLogin(){
+    const data1 = { 
+      email:emailAuth, 
+      password:senhaAuth
+    };
+    try {
+      const response = await api.post('/auth/authenticate', data1);
+      if(response.status == 200){
+        window.location.href='/usuarios';
+      }else{
+        alert('Error ao cadastrar o usuario')
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //FORGOT
+  async function handleForgot(){
+    try {
+      await api.post('/auth/forgot_password')
+    } catch (err) {
+      console.log(err);
+      
+    }
+  }
   return (
       <>
        <div>
-            <HeaderMenu nome="Login e Cadastro"/>
+            <HeaderMenu nome="Cadastro e Login"/>
           </div>
-      {/* create conta */}
+      {/* CRIAR CONTA */}
       <div
       className={`
         flex
@@ -69,7 +106,7 @@ export default function Login() {
           className={`formBx ${abrir === 1 ? "active active-2 active-3" : ""}`}
         >
           <div className="form signinForm">
-            <form action="">
+           
               <div className="social-container flex justify-center">
                 <a href="#">
                   <BsFacebook className="w-6 h-6 text-blue-400" />
@@ -110,12 +147,14 @@ export default function Login() {
                         placeholder="Senha"/>
 
                       <input type="submit" value="Registrar" onClick={handleSubmit}/>  
-            </form>
+
+                      <a href=""></a>
+            
           </div>
 
-          {/* Login */}
+          {/* LOGIN */}
           <div className="form signupForm">
-            <form action="">
+            
               <div className="social-container flex justify-center">
                 <a href="#">
                   <BsFacebook className="w-6 h-6 text-blue-400" />
@@ -128,10 +167,30 @@ export default function Login() {
                 </a>
               </div>
               <h3>Sing Up</h3>
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Senha" />
-              <input type="submit" value="Login" />
-            </form>
+              <input 
+              type="email" 
+              required
+              id="emaill"
+              name="email"
+              value={emailAuth}
+              onChange={e => setEmailAuth(e.target.value)}
+              placeholder="Email" />
+
+              <input 
+              type="password" 
+              required
+              id="senhaa"
+              name="senha"
+              value={senhaAuth}
+              onChange={e => setSenhaAuth(e.target.value)}
+              placeholder="Senha" />
+
+              <input type="submit" value="Login" onClick={handleLogin}/>
+
+              <Link to="/admin/trocarSenha">
+               <button>Trocar de senha</button>
+              </Link>
+           
           </div>
         </div>
       </div>

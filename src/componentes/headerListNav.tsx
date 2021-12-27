@@ -1,13 +1,34 @@
+import { Link } from "react-router-dom";
+
 import { MdDashboard, MdProductionQuantityLimits } from "react-icons/md";
 import { HiUserAdd } from "react-icons/hi";
 import { IoExitOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
+
 
 export default function DashboardNav() {
   return (
     <div className="bg-gray-800 max-w-sm text-white z-auto">
+
+      <div>
+      <Link to="/admin/home">
+          <button
+            className="inline-flex
+            flex-column
+             items-center 
+             hover:bg-blue-400 
+             duration-500
+             rounded-md
+             p-2"
+          >
+            <AiFillHome />
+            <div className="ml-2">Home</div>
+          </button>
+        </Link>
+      </div>
+
       <div className="">
-        <Link to="/admin">
+        <Link to="/admin/dashboard">
           <button
             className="inline-flex
             flex-column
