@@ -53,7 +53,12 @@ export default function Login() {
       password:senhaAuth
     };
     try {
-      await api.post('/auth/authenticate', data1)
+      const response = await api.post('/auth/authenticate', data1);
+      if(response.status == 200){
+        window.location.href='/usuarios';
+      }else{
+        alert('Error ao cadastrar o usuario')
+      }
     } catch (err) {
       console.log(err);
     }
@@ -101,7 +106,7 @@ export default function Login() {
           className={`formBx ${abrir === 1 ? "active active-2 active-3" : ""}`}
         >
           <div className="form signinForm">
-            <form action="">
+           
               <div className="social-container flex justify-center">
                 <a href="#">
                   <BsFacebook className="w-6 h-6 text-blue-400" />
@@ -144,12 +149,12 @@ export default function Login() {
                       <input type="submit" value="Registrar" onClick={handleSubmit}/>  
 
                       <a href=""></a>
-            </form>
+            
           </div>
 
           {/* LOGIN */}
           <div className="form signupForm">
-            <form action="">
+            
               <div className="social-container flex justify-center">
                 <a href="#">
                   <BsFacebook className="w-6 h-6 text-blue-400" />
@@ -185,7 +190,7 @@ export default function Login() {
               <Link to="/admin/trocarSenha">
                <button>Trocar de senha</button>
               </Link>
-            </form>
+           
           </div>
         </div>
       </div>
