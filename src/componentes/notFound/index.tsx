@@ -12,7 +12,7 @@ export default function NotFound(){
             </div>
            <div className=" flex
              justify-center ">
-           <Link to="/admin/home">
+           <Link to="/">
           <button
             className="
              hover:bg-blue-400 

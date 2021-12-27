@@ -33,14 +33,12 @@ export default function Login() {
     try {
       if(nome != "" && email != "" && senha != ""){
     const response = await api.post('/auth/register', data);
-    if(response.status == 200){
+    if(response.status === 200){
       window.location.href='/usuarios';
-    }else{
-      alert('Error ao cadastrar o usuario')
     }
       }
     } catch (err) {
-      console.log(err)
+      alert('Error ao cadastrar o usuario');
     }
   };
 
@@ -54,13 +52,11 @@ export default function Login() {
     };
     try {
       const response = await api.post('/auth/authenticate', data1);
-      if(response.status == 200){
+      if(response.status === 200){
         window.location.href='/usuarios';
-      }else{
-        alert('Error ao cadastrar o usuario')
       }
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 
