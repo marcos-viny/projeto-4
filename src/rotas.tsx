@@ -2,7 +2,9 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
+    Navigate
   } from "react-router-dom";
+
 
 
   //Imports Admin;
@@ -12,10 +14,12 @@ import {
    import UsuarioCadastrar from "./pages/admin/usuarios/login&cadastro/usuarioCadastrar";
    import Forgot from "./pages/admin/usuarios/forgot";
    import NotFound from "./componentes/notFound/index";
+   import PrivateRoute from "./server/wAuth"
 
   //Imports Client;
   import Home from "./pages/home";
 
+  
  export default function Rotas(){
    return(
        <Router>

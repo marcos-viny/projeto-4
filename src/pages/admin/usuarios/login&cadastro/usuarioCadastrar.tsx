@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { BsLinkedin, BsFacebook, BsInstagram } from "react-icons/bs";
 import api from "../../../../server/index";
 import HeaderMenu from "../../../../componentes/headerMenuNav";
+import { login, setIdUsuario, setNomeUsuario} from "../../../../server/auth";
 
 import "./usuarioCadastrar.scss";
 
@@ -53,7 +54,11 @@ export default function Login() {
     try {
       const response = await api.post('/auth/authenticate', data1);
       if(response.status === 200){
-        window.location.href='/usuarios';
+        login(response.data.token);
+        setIdUsuario(response.data.user_id);
+        setNomeUsuario(response.data.user_name);
+
+         window.location.href='/usuarios';
       }
     } catch (err) {
       alert(err);
