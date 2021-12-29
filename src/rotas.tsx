@@ -28,7 +28,9 @@ import {
            <Route path="/" element={<UsuarioCadastrar />} />
 
            {/* ROTA ADMIN */}
-           <Route path="/admin/home" element={<Home />} />
+           <Route path="/admin/home" element={<PrivateRoute>
+             <Home />
+           </PrivateRoute>} />
            <Route path="/admin/dashboard" element={<DashBoard />} />
            <Route path="/admin/produtos" element={<Produto />} />
            <Route path="/admin/usuario" element={<Usuario />} />
