@@ -69,17 +69,6 @@ export default function Login() {
     }
   };
 
-
-
-  //FORGOT
-  async function handleForgot(){
-    try {
-      await api.post('/auth/forgot_password')
-    } catch (err) {
-      console.log(err);
-      
-    }
-  }
   return (
       <>
        <div>

@@ -1,11 +1,13 @@
 import api from "./index";
 import { login, logout, getToken} from "./auth";
-import { Navigate} from "react-router-dom";
+import { Navigate, useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function WAuth({ children, redirectTo}:any){
-    const [ redirect, setRedirect ] = useState(false);
-    const [ loading, setLoading ] = useState(true);
+
+export default function WAuth({children, redirectTo }:any){
+  
+  
+    const [ loading, setLoading ] = useState(!false);
 
     useEffect(() => {
         async function verify(){
@@ -18,12 +20,12 @@ export default function WAuth({ children, redirectTo}:any){
                 const response = await api.get('/projects',config);
                 if(response.status === 200){
                   setLoading(false);
-                  setRedirect(false);
+                  
                   
                 }else{
                     logout();
                     setLoading(false);
-                  setRedirect(true);
+                
 
                 }
               } catch (err) {
@@ -33,7 +35,11 @@ export default function WAuth({ children, redirectTo}:any){
         verify();
     },[]);
 
-    return loading ? children : <Navigate to={redirectTo} />
+     
+    // console.log("isAuth: ", isAuthenticated);
+  
+
+    return loading ? children : <Navigate to={redirectTo} />;
 };
 
 // MEU MODO DE FAZER;
