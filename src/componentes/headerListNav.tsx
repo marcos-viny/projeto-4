@@ -5,6 +5,8 @@ import { HiUserAdd } from "react-icons/hi";
 import { IoExitOutline } from "react-icons/io5";
 import { AiFillHome } from "react-icons/ai";
 
+import { logout } from "../server/auth"
+
 
 export default function DashboardNav() {
   return (
@@ -89,7 +91,7 @@ export default function DashboardNav() {
       </div>
 
       <div className="">
-        <Link to="/">
+        <Link onClick={ logout} to="/">
           <button
             className="inline-flex
             flex-column

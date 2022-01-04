@@ -32,9 +32,18 @@ import {
            <Route path="/admin/home" element={<Private redirectTo="/">
              <Home />
            </Private>} />
-           <Route path="/admin/dashboard" element={<DashBoard />} />
-           <Route path="/admin/produtos" element={<Produto />} />
-           <Route path="/admin/usuario" element={<Usuario />} />
+
+           <Route path="/admin/dashboard" element={<Private redirectTo="/">
+            <DashBoard />
+           </Private>} />
+
+           <Route path="/admin/produtos" element={<Private redirectTo="/">
+            <Produto />
+           </Private>} />
+
+           <Route path="/admin/usuario" element={<Private redirectTo="/">
+            <Usuario />
+           </Private>} />
            <Route path="/admin/trocarSenha" element={<Forgot />} />
            <Route path="/novaSenha" element={<NewSenha />} />
            <Route path="*" element={<NotFound />} />
