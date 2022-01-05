@@ -1,5 +1,6 @@
 import { useState } from "react";
-import api from "../../../server/index";
+import api from "../../../../server/index";
+
 
 export default function Forgot(){
 
@@ -12,7 +13,8 @@ export default function Forgot(){
     
         try {
             await api.post('/auth/forgot_password', data)
-            console.log('teste')
+            console.log('teste');
+            window.location.href='/novaSenha';
         } catch (err) {
           console.log(err)
         }
@@ -21,7 +23,7 @@ export default function Forgot(){
     return(
         <>
         <div>
-            <form action="">
+            
             <input 
                         type="email"
                         required 
@@ -31,8 +33,8 @@ export default function Forgot(){
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Email"/>
 
-<input type="submit" value="Registrar" onClick={handleForgot}/>  
-            </form>
+           <input type="submit" value="Registrar" onClick={handleForgot}/>  
+           
         </div>
         </>
     )

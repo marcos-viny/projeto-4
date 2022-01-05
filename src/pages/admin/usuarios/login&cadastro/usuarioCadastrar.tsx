@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { BsLinkedin, BsFacebook, BsInstagram } from "react-icons/bs";
 import api from "../../../../server/index";
 import HeaderMenu from "../../../../componentes/headerMenuNav";
+import { login, setIdUsuario, setNomeUsuario} from "../../../../server/auth";
 
 import "./usuarioCadastrar.scss";
 
@@ -33,14 +34,12 @@ export default function Login() {
     try {
       if(nome != "" && email != "" && senha != ""){
     const response = await api.post('/auth/register', data);
-    if(response.status == 200){
+    if(response.status === 200){
       window.location.href='/usuarios';
-    }else{
-      alert('Error ao cadastrar o usuario')
     }
       }
     } catch (err) {
-      console.log(err)
+      alert('Error ao cadastrar o usuario');
     }
   };
 
@@ -53,26 +52,23 @@ export default function Login() {
       password:senhaAuth
     };
     try {
-      const response = await api.post('/auth/authenticate', data1);
-      if(response.status == 200){
-        window.location.href='/usuarios';
-      }else{
-        alert('Error ao cadastrar o usuario')
+     await api.post('/auth/authenticate', data1)
+     .then(response =>{
+      if(response.status === 200){
+        login(response.data.token);
+        setIdUsuario(response.data.user._id);
+        setNomeUsuario(response.data.user.name);
+        console.log('ok');
+        
+        //  window.location.href='/usuarios';        
       }
+     })
+      
     } catch (err) {
-      console.log(err);
+      alert('Email ou a senha está incorreto');
     }
   };
 
-  //FORGOT
-  async function handleForgot(){
-    try {
-      await api.post('/auth/forgot_password')
-    } catch (err) {
-      console.log(err);
-      
-    }
-  }
   return (
       <>
        <div>
