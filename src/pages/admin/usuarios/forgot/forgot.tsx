@@ -1,5 +1,9 @@
 import { useState } from "react";
+
+import Swal from 'sweetalert2';
+
 import api from "../../../../server/index";
+
 
 
 export default function Forgot(){
@@ -10,13 +14,24 @@ export default function Forgot(){
         const data = {
           email
         };
-    
         try {
-            await api.post('/auth/forgot_password', data)
-            console.log('teste');
-            window.location.href='/novaSenha';
+          if(email != ""){
+            const response = await api.post('/auth/forgot_password', data)
+           if(response.status === 200){
+             window.location.href='/novaSenha';
+           }
+          }else{
+              Swal.fire({
+                icon:'error',
+                text:'Este campo e obrigatorio!'
+              })
+          }
         } catch (err) {
-          console.log(err)
+          
+          Swal.fire({
+            icon:'error',
+            text:'Este usuario não existe!'
+          })
         }
       };
     

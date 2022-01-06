@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { BsLinkedin, BsFacebook, BsInstagram } from "react-icons/bs";
+import Swal from 'sweetalert2';
+
 import api from "../../../../server/index";
 import HeaderMenu from "../../../../componentes/headerMenuNav";
 import { login, setIdUsuario, setNomeUsuario} from "../../../../server/auth";
@@ -37,35 +39,51 @@ export default function Login() {
     if(response.status === 200){
       window.location.href='/usuarios';
     }
+      }else{
+        Swal.fire({
+          icon:'error',
+          text:'Todos os campos são obrigatorios!'
+        })
+        
       }
     } catch (err) {
-      alert('Error ao cadastrar o usuario');
+      Swal.fire({
+        icon:'error',
+        text:'Este usuario já existe!'
+      })
     }
   };
 
   // AUTENTICAÇÃO LOGIN;
   const [senhaAuth, setSenhaAuth] = useState('');
   const [emailAuth, setEmailAuth] = useState('');
+
   async function handleLogin(){
     const data1 = { 
       email:emailAuth, 
       password:senhaAuth
     };
     try {
-     await api.post('/auth/authenticate', data1)
-     .then(response =>{
-      if(response.status === 200){
-        login(response.data.token);
-        setIdUsuario(response.data.user._id);
-        setNomeUsuario(response.data.user.name);
-        console.log('ok');
-        
-        //  window.location.href='/usuarios';        
+      if(senhaAuth != "" && emailAuth != ""){
+        const response = await api.post('/auth/authenticate', data1);
+        if(response.status === 200){
+          login(response.data.token);
+          setIdUsuario(response.data.user._id);
+          setNomeUsuario(response.data.user.name);
+          console.log('ok');
+            window.location.href='/admin/home';        
+        }
+      }else{
+        Swal.fire({
+          icon:'error',
+          text:'Todos os campos são obrigatorios!'
+        })
       }
-     })
-      
     } catch (err) {
-      alert('Email ou a senha está incorreto');
+      Swal.fire({
+        icon:'error',
+        text:'O email ou a senha estão incorretos!'
+      })
     }
   };
 
@@ -166,8 +184,8 @@ export default function Login() {
               <input 
               type="email" 
               required
-              id="emaill"
-              name="email"
+              id="emailAuth"
+              name="emailAuth"
               value={emailAuth}
               onChange={e => setEmailAuth(e.target.value)}
               placeholder="Email" />
@@ -175,8 +193,8 @@ export default function Login() {
               <input 
               type="password" 
               required
-              id="senhaa"
-              name="senha"
+              id="senhaAuth"
+              name="senhaAuth"
               value={senhaAuth}
               onChange={e => setSenhaAuth(e.target.value)}
               placeholder="Senha" />

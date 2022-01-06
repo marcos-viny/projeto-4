@@ -1,8 +1,9 @@
 import { useState } from "react";
+
 import HeaderList from "./headerListNav";
 
 import "./headerMenuNav.scss";
-export default function headerMenu(props:any) {
+export default function HeaderMenu(props:any) {
   let [abrir, setAbrir] = useState(0);
 
   function toogle(e: any) {
